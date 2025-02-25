@@ -1,13 +1,53 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Button from './Button'
 import Input from './Input'
 import speaker from '../assets/speaker.png'
 
 function TypingTemplete() {
+
+  const lines = [
+    "the sun rises, painting the sky with hues of gold through this",
+    "birds chirp melodiously announcing the arrival of dawn's",
+    "dew-kissed grass glistens reflecting the morning's gentle on",
+    "a gentle breeze whispers secrets through the rustling leaves",
+    "mountains stand tall guardians of ancient tales untold color",
+    "rivers meander lazily carving paths through verdant world i",
+    "flowers bloom their vibrant colors dancing in the sunlight",
+    "time marches on a relentless force shaping the world your",
+    "dreams take flight carried on wings of hope and ambition a",
+    "life's symphony plays on each note a story unfolding on ear"
+  ];
+
+  let randomvalue=useRef( Math.floor(Math.random()*lines.length))
+  const [score,setscore]=useState(0)
+  const [userTyping,setUserTyping]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
+  const [InputPara,setInputPara]=useState(lines[randomvalue.current])
+  const [InputParaArray,setInputParaArray]=useState(lines[randomvalue.current].split(" "))
+  console.log(InputParaArray);
+  console.log(userTyping);
+  
   const handleClass=(btnClass)=>{
     setsiActiveClass(btnClass)
   }
+
+  const handleKeyUp=(event )=>{
+    for(let i=0; i<2; i++){
+      console.log('j');
+      
+    }
+  }
+
+  const Process=()=>{
+    for( let item in InputParaArray){
+      if(item===userTyping){
+        setscore(score+1)
+      }
+    }
+  }
+
+  useEffect(()=>Process(),[])
+
   return (
     <>
        <div className=' h-screen bg-black grid grid-rows-12'>
@@ -30,7 +70,7 @@ function TypingTemplete() {
 
                 <div className=' border py-6 px-10 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>words-mins</h3>
-                  <p className=' text-center text-2xl'>0 WPM</p>
+                  <p className=' text-center text-2xl'>{score} WPM</p>
                 </div>
 
                 <div className=' border py-6 px-14 rounded-2xl'>
@@ -58,11 +98,11 @@ function TypingTemplete() {
             </div>
 
             <div className=' flex justify-center items-center row-span-2 '>
-                <Input readOnly ClassName=' w-[55%]' value='sfdgfgdds'/> 
+                <Input readOnly ClassName=' w-[55%] text-3xl' value={InputPara}/> 
             </div>
 
             <div className=' flex justify-center items-center row-span-3 '>
-                 <Input  ClassName=' w-[42%] placeholder-green-600 placeholder:text-2xl placeholder:font-bold' placeholder='Start Typing Here ....' /> 
+                 <Input onChange={(e)=>setUserTyping(e.target.value)} value={userTyping} onKeyUp={handleKeyUp}  ClassName=' w-[42%] placeholder-green-600 placeholder:text-2xl placeholder:font-bold' placeholder='Start Typing Here ....' /> 
             </div>
 
        </div>
