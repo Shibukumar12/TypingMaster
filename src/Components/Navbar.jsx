@@ -32,9 +32,9 @@ function Navbar() {
 
             <ul className=' flex items-center gap-14 '>
                 {
-                    navbarItems.map((navitem)=>{
+                    navbarItems.map((navitem,idx)=>{
                         return(
-                        <li className=' font-serif text-white cursor-pointer duration-700 hover:bg-[#333333] hover:text-yellow-300 hover:underline  rounded-xl px-3 py-2'>{navitem.name}</li>
+                        <li key={idx} className=' font-serif text-white cursor-pointer duration-700 hover:bg-[#333333] hover:text-yellow-300 hover:underline  rounded-xl px-3 py-2'>{navitem.name}</li>
                        )
                     })
                 }
