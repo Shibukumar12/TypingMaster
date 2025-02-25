@@ -44,7 +44,7 @@ function Navbar() {
 
         <div className='col-span-2 flex items-center justify-end mr-10'>
             
-            <Button className='px-3 py-2 rounded-xl font-serif text-white' children='Free Certificate'/>
+            <Button className='bg-[#9b50ba] px-3 py-2 rounded-xl font-serif text-white' children='Free Certificate'/>
         </div>
 
      </div>
