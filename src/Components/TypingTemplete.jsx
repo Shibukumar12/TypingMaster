@@ -20,33 +20,53 @@ function TypingTemplete() {
 
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
   const [score,setscore]=useState(0)
+  const [Error,setError]=useState(0)
+  const [index,setindex]=useState(0)
   const [userTyping,setUserTyping]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
   const [InputPara,setInputPara]=useState(lines[randomvalue.current])
   const [InputParaArray,setInputParaArray]=useState(lines[randomvalue.current].split(" "))
-  console.log(InputParaArray);
-  console.log(userTyping);
+
   
   const handleClass=(btnClass)=>{
     setsiActiveClass(btnClass)
   }
 
   const handleKeyUp=(event )=>{
-    for(let i=0; i<2; i++){
-      console.log('j');
+      if(event.code==='Space'){
+          Process()
+      }
       
-    }
   }
 
   const Process=()=>{
-    for( let item in InputParaArray){
-      if(item===userTyping){
+    let user=userTyping.trim()
+    console.log(InputParaArray);
+    console.log(index);
+    console.log(InputParaArray[index]);
+    
+    
+    if(user === InputParaArray[index]){
         setscore(score+1)
-      }
+        setindex(index+1)
+        setUserTyping('')
+
+    }
+    else{
+        setError(Error+1)
+        setindex(index+1)
+        setUserTyping('')
     }
   }
 
-  useEffect(()=>Process(),[])
+  if( InputParaArray.length-1 === index){
+    randomvalue.current= Math.floor(Math.random()*lines.length)
+    setInputPara(lines[randomvalue.current])
+    setInputParaArray(lines[randomvalue.current].split(' '))
+    setindex(0)
+    console.log(index);
+    
+ }
 
   return (
     <>
@@ -65,7 +85,7 @@ function TypingTemplete() {
 
                 <div className=' border py-6 px-10 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>Accuracy</h3>
-                  <p className=' text-center text-2xl'>0 %</p>
+                  <p className=' text-center text-2xl'>{index} %</p>
                 </div>
 
                 <div className=' border py-6 px-10 rounded-2xl'>
@@ -75,7 +95,7 @@ function TypingTemplete() {
 
                 <div className=' border py-6 px-14 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>Errors</h3>
-                  <p className=' text-center text-2xl'>00</p>
+                  <p className=' text-center text-2xl'>{Error}</p>
                 </div>
             </div>
 
@@ -102,7 +122,7 @@ function TypingTemplete() {
             </div>
 
             <div className=' flex justify-center items-center row-span-3 '>
-                 <Input onChange={(e)=>setUserTyping(e.target.value)} value={userTyping} onKeyUp={handleKeyUp}  ClassName=' w-[42%] placeholder-green-600 placeholder:text-2xl placeholder:font-bold' placeholder='Start Typing Here ....' /> 
+                 <Input onChange={(e)=>setUserTyping(e.target.value)} value={userTyping} onKeyUp={handleKeyUp}  ClassName=' w-[42%] text-3xl placeholder-green-600 placeholder:text-2xl placeholder:font-bold' placeholder='Start Typing Here ....' /> 
             </div>
 
        </div>
