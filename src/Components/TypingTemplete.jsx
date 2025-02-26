@@ -21,6 +21,7 @@ function TypingTemplete() {
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
   const [score,setscore]=useState(0)
   const [Error,setError]=useState(0)
+  const [Accuracy,setAccuracy]=useState(0)
   const [index,setindex]=useState(0)
   const [userTyping,setUserTyping]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
@@ -32,41 +33,56 @@ function TypingTemplete() {
     setsiActiveClass(btnClass)
   }
 
+  
+  const Process=()=>{
+        let user=userTyping.trim()
+        console.log(InputParaArray);
+        console.log(index);
+        console.log(InputParaArray[index]);
+        
+        // check the user Answer and update Score and Error
+        if(user === InputParaArray[index]){            
+          setscore(score+1)
+          setindex(index+1)
+          setUserTyping('')
+          
+        }
+        else{
+          setError(Error+1)
+          setindex(index+1)
+          setUserTyping('')
+        }
+        
+         //  after complete the line by user then show the another new line on the UI
+        if( InputParaArray.length-1 === index){         
+          randomvalue.current= Math.floor(Math.random()*lines.length)
+          setInputPara(lines[randomvalue.current])
+          setInputParaArray(lines[randomvalue.current].split(' '))
+          setindex(0)
+          console.log(index);
+          
+        }
+     
+  }
+
+  // if user
   const handleKeyUp=(event )=>{
-      if(event.code==='Space'){
+      if(event.code==='Space' && userTyping !== ''){
           Process()
       }
       
   }
 
-  const Process=()=>{
-    let user=userTyping.trim()
-    console.log(InputParaArray);
-    console.log(index);
-    console.log(InputParaArray[index]);
-    
-    
-    if(user === InputParaArray[index]){
-        setscore(score+1)
-        setindex(index+1)
-        setUserTyping('')
 
-    }
-    else{
-        setError(Error+1)
-        setindex(index+1)
-        setUserTyping('')
-    }
+  useEffect(() => {
+    if(score+Error > 0){
+    setAccuracy(Math.floor((score*100)/(score+Error)))
   }
+  
+  }, [score,Error])
+  
 
-  if( InputParaArray.length-1 === index){
-    randomvalue.current= Math.floor(Math.random()*lines.length)
-    setInputPara(lines[randomvalue.current])
-    setInputParaArray(lines[randomvalue.current].split(' '))
-    setindex(0)
-    console.log(index);
-    
- }
+  
 
   return (
     <>
@@ -85,7 +101,7 @@ function TypingTemplete() {
 
                 <div className=' border py-6 px-10 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>Accuracy</h3>
-                  <p className=' text-center text-2xl'>{index} %</p>
+                  <p className=' text-center text-2xl'>{Accuracy} %</p>
                 </div>
 
                 <div className=' border py-6 px-10 rounded-2xl'>
