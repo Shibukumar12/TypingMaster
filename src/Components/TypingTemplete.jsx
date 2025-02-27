@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Button from './Button'
 import Input from './Input'
 import speaker from '../assets/speaker.png'
+import { useNavigate } from 'react-router-dom';
 
 function TypingTemplete() {
 
@@ -17,12 +18,14 @@ function TypingTemplete() {
     "dreams take flight carried on wings of hope and ambition a",
     "life's symphony plays on each note a story unfolding on ear"
   ];
-
+  const navigate=useNavigate()
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
   const [score,setscore]=useState(0)
   const [Error,setError]=useState(0)
-  const [Accuracy,setAccuracy]=useState(0)
+  const [Timer,setTimer]=useState(60)
   const [index,setindex]=useState(0)
+  const [Accuracy,setAccuracy]=useState(0)
+  const [hastimerStarted, setHastimerStarted] = useState(false);
   const [userTyping,setUserTyping]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
   const [InputPara,setInputPara]=useState(lines[randomvalue.current])
@@ -42,34 +45,55 @@ function TypingTemplete() {
         
         // check the user Answer and update Score and Error
         if(user === InputParaArray[index]){            
-          setscore(score+1)
-          setindex(index+1)
-          setUserTyping('')
+            setscore(score+1)
+            setindex(index+1)
+            setUserTyping('')
           
         }
         else{
-          setError(Error+1)
-          setindex(index+1)
-          setUserTyping('')
+            setError(Error+1)
+            setindex(index+1)
+            setUserTyping('')
         }
         
          //  after complete the line by user then show the another new line on the UI
         if( InputParaArray.length-1 === index){         
-          randomvalue.current= Math.floor(Math.random()*lines.length)
-          setInputPara(lines[randomvalue.current])
-          setInputParaArray(lines[randomvalue.current].split(' '))
-          setindex(0)
-          console.log(index);
+            randomvalue.current= Math.floor(Math.random()*lines.length)
+            setInputPara(lines[randomvalue.current])
+            setInputParaArray(lines[randomvalue.current].split(' '))
+            setindex(0)
+            console.log(index);
           
         }
      
   }
 
-  // if user
+  const startTimer = () => {
+    if (!hastimerStarted) {
+       setHastimerStarted(true); 
+     let timerRef = setInterval(() => {
+        setTimer((prev) => {
+          if (prev > 0){
+             return prev - 1;
+          }
+          else{
+              clearInterval(timerRef); // Stop timer at 0
+              navigate('/Typing-scoreCard')
+              return 0;
+          }
+        });
+      }, 1000);
+    }
+  };
+
+  // if user press any button then start processing  like score , error ,timer also
   const handleKeyUp=(event )=>{
       if(event.code==='Space' && userTyping !== ''){
+          // startTimer()
           Process()
       }
+
+      if(event.key) startTimer()
       
   }
 
@@ -96,7 +120,7 @@ function TypingTemplete() {
 
             <div className='flex justify-evenly items-center  row-span-4  text-white '>
                 <div className=' border-8 rounded-full border-green-400'>
-                  <h2 className='p-10 text-3xl'>60</h2>
+                  <h2 className='p-10 text-3xl'>{Timer}</h2>
                 </div>
 
                 <div className=' border py-6 px-10 rounded-2xl'>
