@@ -3,6 +3,8 @@ import Button from './Button'
 import Input from './Input'
 import speaker from '../assets/speaker.png'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import{UpdaterrorScore,UpdateScore,UpdateAccuracy} from './Store/Slicing'
 
 function TypingTemplete() {
 
@@ -20,8 +22,7 @@ function TypingTemplete() {
   ];
   const navigate=useNavigate()
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
-  const [score,setscore]=useState(0)
-  const [Error,setError]=useState(0)
+
   const [Timer,setTimer]=useState(60)
   const [index,setindex]=useState(0)
   const [Accuracy,setAccuracy]=useState(0)
@@ -30,7 +31,9 @@ function TypingTemplete() {
   const [isAciveClass,setsiActiveClass]=useState('Basic')
   const [InputPara,setInputPara]=useState(lines[randomvalue.current])
   const [InputParaArray,setInputParaArray]=useState(lines[randomvalue.current].split(" "))
-
+  const selector = useSelector(state=>state.Typingmaster)
+  const dispatch=useDispatch()
+  console.log(selector.score);
   
   const handleClass=(btnClass)=>{
     setsiActiveClass(btnClass)
@@ -45,13 +48,13 @@ function TypingTemplete() {
         
         // check the user Answer and update Score and Error
         if(user === InputParaArray[index]){            
-            setscore(score+1)
+            dispatch(UpdateScore())
             setindex(index+1)
             setUserTyping('')
           
         }
         else{
-            setError(Error+1)
+            dispatch(UpdaterrorScore())
             setindex(index+1)
             setUserTyping('')
         }
@@ -65,7 +68,7 @@ function TypingTemplete() {
             console.log(index);
           
         }
-     
+     dispatch(UpdateAccuracy())
   }
 
   const startTimer = () => {
@@ -89,7 +92,6 @@ function TypingTemplete() {
   // if user press any button then start processing  like score , error ,timer also
   const handleKeyUp=(event )=>{
       if(event.code==='Space' && userTyping !== ''){
-          // startTimer()
           Process()
       }
 
@@ -98,12 +100,12 @@ function TypingTemplete() {
   }
 
 
-  useEffect(() => {
-    if(score+Error > 0){
-    setAccuracy(Math.floor((score*100)/(score+Error)))
-  }
+  // useEffect(() => {
+  //   if(score+Error > 0){
+  //   setAccuracy(Math.floor((score*100)/(score+Error)))
+  // }
   
-  }, [score,Error])
+  // }, [score,Error])
   
 
   
@@ -125,17 +127,17 @@ function TypingTemplete() {
 
                 <div className=' border py-6 px-10 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>Accuracy</h3>
-                  <p className=' text-center text-2xl'>{Accuracy} %</p>
+                  <p className=' text-center text-2xl'>{selector.accuracy} %</p>
                 </div>
 
                 <div className=' border py-6 px-10 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>words-mins</h3>
-                  <p className=' text-center text-2xl'>{score} WPM</p>
+                  <p className=' text-center text-2xl'>{selector.score} WPM</p>
                 </div>
 
                 <div className=' border py-6 px-14 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>Errors</h3>
-                  <p className=' text-center text-2xl'>{Error}</p>
+                  <p className=' text-center text-2xl'>{selector.error}</p>
                 </div>
             </div>
 

@@ -5,6 +5,8 @@ import './index.css'
 import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import TypingTemplete from './Components/TypingTemplete.jsx'
 import ScoreCard from './Components/ScoreCard.jsx'
+import { Provider } from 'react-redux'
+import store from './Components/Store/Store.jsx'
 
 const Router= createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +19,8 @@ const Router= createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
+      <Provider store={store}>
       <RouterProvider router={Router}/>
+      </Provider>
   </>
 )
