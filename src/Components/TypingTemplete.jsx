@@ -22,10 +22,8 @@ function TypingTemplete() {
   ];
   const navigate=useNavigate()
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
-
   const [Timer,setTimer]=useState(60)
   const [index,setindex]=useState(0)
-  const [Accuracy,setAccuracy]=useState(0)
   const [hastimerStarted, setHastimerStarted] = useState(false);
   const [userTyping,setUserTyping]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
@@ -33,7 +31,7 @@ function TypingTemplete() {
   const [InputParaArray,setInputParaArray]=useState(lines[randomvalue.current].split(" "))
   const selector = useSelector(state=>state.Typingmaster)
   const dispatch=useDispatch()
-  console.log(selector.score);
+  
   
   const handleClass=(btnClass)=>{
     setsiActiveClass(btnClass)
@@ -65,7 +63,6 @@ function TypingTemplete() {
             setInputPara(lines[randomvalue.current])
             setInputParaArray(lines[randomvalue.current].split(' '))
             setindex(0)
-            console.log(index);
           
         }
      dispatch(UpdateAccuracy())
@@ -98,16 +95,10 @@ function TypingTemplete() {
       if(event.key) startTimer()
       
   }
-
-
-  // useEffect(() => {
-  //   if(score+Error > 0){
-  //   setAccuracy(Math.floor((score*100)/(score+Error)))
+  
+  // const increaseTimerDuration_by_user=()=>{
+    
   // }
-  
-  // }, [score,Error])
-  
-
   
 
   return (
@@ -121,8 +112,8 @@ function TypingTemplete() {
             </div>
 
             <div className='flex justify-evenly items-center  row-span-4  text-white '>
-                <div className=' border-8 rounded-full border-green-400'>
-                  <h2 className='p-10 text-3xl'>{Timer}</h2>
+                <div className=' border-8 text-center rounded-full border-green-400 flex justify-center items-center w-36 h-36'>
+                  <h2 className=' text-3xl  font-mono'>{Timer}</h2>
                 </div>
 
                 <div className=' border py-6 px-10 rounded-2xl'>
@@ -150,9 +141,9 @@ function TypingTemplete() {
                 </div>
                 <div className=' flex items-center gap-5'>
                     <h4>Mode</h4>
-                    <Button children='1 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
-                    <Button children='3 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
-                    <Button children='5 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
+                    <Button onClick={()=>setTimer(60)} children='1 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
+                    <Button onClick={()=>setTimer(180)} children='3 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
+                    <Button onClick={()=>setTimer(300)} children='5 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
                 </div>
                 <div>
                     <img src={speaker} alt="" />

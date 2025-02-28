@@ -12,15 +12,21 @@ export const slicerr=createSlice({
     reducers:{
         UpdateScore:(state)=>{
             state.score+=1
+            // state.score=(state.score + state.error)/1
         },
         UpdaterrorScore:(state)=>{
             state.error+=1
         },
         UpdateAccuracy:(state)=>{
             state.accuracy=Math.floor((state.score*100)/(state.error+state.score))
+        },
+        playAgain:(state)=>{
+            state.accuracy=0
+            state.error=0
+            state.score=0
         }
     }
 })
 
-export const {UpdateScore,UpdaterrorScore,UpdateAccuracy}=slicerr.actions
+export const {UpdateScore,UpdaterrorScore,UpdateAccuracy,playAgain}=slicerr.actions
 export default slicerr.reducer

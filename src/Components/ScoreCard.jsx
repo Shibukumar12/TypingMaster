@@ -1,13 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { playAgain } from './Store/Slicing'
 
 
 function ScoreCard() {
   const selector=useSelector(state=>state.Typingmaster)
   const navigate=useNavigate()
+  const dispatch=useDispatch()
 
   const updateGlobalState=()=>{
+    dispatch(playAgain())
     navigate('/')
   }
   return (
