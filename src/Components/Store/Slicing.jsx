@@ -1,24 +1,26 @@
 import {createSlice } from '@reduxjs/toolkit'
 
 const initialState={
-        score:0,
+        words:0,
         error:0,
         accuracy:0,
+        wpm:0,
 }
 
 export const slicerr=createSlice({
     name: 'Typing',
     initialState: initialState,
     reducers:{
-        UpdateScore:(state)=>{
-            state.score+=1
-            // state.score=(state.score + state.error)/1
+        UpdateScore:(state,action)=>{
+            let minute=action.payload
+            state.words+=1
+            state.wpm=Math.floor((state.words/minute))
         },
         UpdaterrorScore:(state)=>{
             state.error+=1
         },
         UpdateAccuracy:(state)=>{
-            state.accuracy=Math.floor((state.score*100)/(state.error+state.score))
+            state.accuracy=Math.round((state.words*100)/(state.error+state.words))
         },
         playAgain:(state)=>{
             state.accuracy=0

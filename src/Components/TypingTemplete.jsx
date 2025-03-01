@@ -48,9 +48,9 @@ function TypingTemplete() {
   const Process=()=>{
         let user=userTyping.trim()
 
-        // check the user Answer and update Score and Error
+        // check the user Answer and update Score and Error in Global State
         if(user === InputParaArray[index]){            
-            dispatch(UpdateScore())
+            dispatch(UpdateScore( Timer/60 ))
             setindex(index+1)
             setUserTyping('')
           
@@ -153,7 +153,7 @@ function TypingTemplete() {
 
                 <div className=' border py-6 px-10 rounded-2xl'>
                   <h3 className=' font-bold text-xl'>words-mins</h3>
-                  <p className=' text-center text-2xl'>{selector.score} WPM</p>
+                  <p className=' text-center text-2xl'>{selector.wpm} WPM</p>
                 </div>
 
                 <div className=' border py-6 px-14 rounded-2xl'>
