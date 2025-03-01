@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Button from './Button'
 import Input from './Input'
-import speaker from '../assets/speaker.png'
+import speakerOn from '../assets/speakerOn.png'
+import speakerOof from '../assets/speakerOof.jpg'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import{UpdaterrorScore,UpdateScore,UpdateAccuracy} from './Store/Slicing'
+import typing from '../assets/typing.mp4'
+import gameoversound from '../assets/gameoversound.wav'
 
 function TypingTemplete() {
 
@@ -20,30 +23,31 @@ function TypingTemplete() {
     "dreams take flight carried on wings of hope and ambition a",
     "life's symphony plays on each note a story unfolding on ear"
   ];
-  const navigate=useNavigate()
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
   const [Timer,setTimer]=useState(60)
   const [index,setindex]=useState(0)
+  const [SoundOn,setSoundOn]=useState(true)
   const [hastimerStarted, setHastimerStarted] = useState(false);
   const [userTyping,setUserTyping]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
   const [InputPara,setInputPara]=useState(lines[randomvalue.current])
   const [InputParaArray,setInputParaArray]=useState(lines[randomvalue.current].split(" "))
+  const typingVoice=useRef(new Audio(typing))
+  const GameOverSound= useRef(new Audio(gameoversound))
   const selector = useSelector(state=>state.Typingmaster)
   const dispatch=useDispatch()
+  const navigate=useNavigate()
   
   
   const handleClass=(btnClass)=>{
     setsiActiveClass(btnClass)
   }
 
-  
+
+//set the process function of the game ...............................................
   const Process=()=>{
         let user=userTyping.trim()
-        console.log(InputParaArray);
-        console.log(index);
-        console.log(InputParaArray[index]);
-        
+
         // check the user Answer and update Score and Error
         if(user === InputParaArray[index]){            
             dispatch(UpdateScore())
@@ -68,6 +72,11 @@ function TypingTemplete() {
      dispatch(UpdateAccuracy())
   }
 
+// ********************************************************************************************************************
+
+
+
+// Timer function to start the timer and stop the timer after 0 ........................................
   const startTimer = () => {
     if (!hastimerStarted) {
        setHastimerStarted(true); 
@@ -79,6 +88,10 @@ function TypingTemplete() {
           else{
               clearInterval(timerRef); // Stop timer at 0
               navigate('/Typing-scoreCard')
+              
+              if(SoundOn){ 
+                GameOverSound.current.play()
+              }
               return 0;
           }
         });
@@ -86,8 +99,15 @@ function TypingTemplete() {
     }
   };
 
-  // if user press any button then start processing  like score , error ,timer also
+// ********************************************************************************************************************
+
+
+// if user press any button then start processing and fuctions like score , error ,timer also ......................
   const handleKeyUp=(event )=>{
+      if(SoundOn){
+          typingVoice.current.play()
+      }
+
       if(event.code==='Space' && userTyping !== ''){
           Process()
       }
@@ -95,11 +115,21 @@ function TypingTemplete() {
       if(event.key) startTimer()
       
   }
+// ********************************************************************************************************************
+
+
+
   
-  // const increaseTimerDuration_by_user=()=>{
-    
-  // }
-  
+  // control the sound on and off ..............................................
+  const handleSoundToggle=()=>{
+    setSoundOn(!SoundOn)
+  }
+
+  if(!SoundOn){
+    typingVoice.current.pause()
+    GameOverSound.current.pause()
+  } 
+// *****************************************************************************
 
   return (
     <>
@@ -146,7 +176,7 @@ function TypingTemplete() {
                     <Button onClick={()=>setTimer(300)} children='5 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
                 </div>
                 <div>
-                    <img src={speaker} alt="" />
+                    <img className=' cursor-pointer w-10' onClick={handleSoundToggle}  src={`${SoundOn ? speakerOn : speakerOof}`} alt="" />
                 </div>
             </div>
 
