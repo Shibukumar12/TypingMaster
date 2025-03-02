@@ -25,6 +25,7 @@ function TypingTemplete() {
   ];
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
   const [Timer,setTimer]=useState(60)
+  const [Minute,setMinute]=useState(1)
   const [index,setindex]=useState(0)
   const [SoundOn,setSoundOn]=useState(true)
   const [hastimerStarted, setHastimerStarted] = useState(false);
@@ -50,7 +51,7 @@ function TypingTemplete() {
 
         // check the user Answer and update Score and Error in Global State
         if(user === InputParaArray[index]){            
-            dispatch(UpdateScore( Timer/60 ))
+            dispatch(UpdateScore( Minute ))
             setindex(index+1)
             setUserTyping('')
           
@@ -77,7 +78,7 @@ function TypingTemplete() {
 
 
 // Timer function to start the timer and stop the timer after 0 ........................................
-  const startTimer = () => {
+const startTimer = () => {
     if (!hastimerStarted) {
        setHastimerStarted(true); 
      let timerRef = setInterval(() => {
@@ -100,6 +101,7 @@ function TypingTemplete() {
   };
 
 // ********************************************************************************************************************
+
 
 
 // if user press any button then start processing and fuctions like score , error ,timer also ......................
@@ -171,9 +173,12 @@ function TypingTemplete() {
                 </div>
                 <div className=' flex items-center gap-5'>
                     <h4>Mode</h4>
-                    <Button onClick={()=>setTimer(60)} children='1 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
-                    <Button onClick={()=>setTimer(180)} children='3 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
-                    <Button onClick={()=>setTimer(300)} children='5 Minute' className='bg-[#9b50ba] rounded-xl py-1 px-4'/>
+                    <Button onClick={()=>{setTimer(60);
+                       setMinute(1) }} children='1 Minute' className={` ${Minute === 1 ? 'bg-[#9b50ba] ' : 'border'}   rounded-xl py-1 px-4`}/>
+                    <Button onClick={()=>{setTimer(180); 
+                       setMinute(3) }} children='3 Minute' className={` ${Minute === 3 ? 'bg-[#9b50ba] ' : 'border'}   rounded-xl py-1 px-4`}/>
+                    <Button onClick={()=>{setTimer(300); 
+                       setMinute(5) }} children='5 Minute' className={` ${Minute === 5 ? 'bg-[#9b50ba]' : 'border'}   rounded-xl py-1 px-4`}/>
                 </div>
                 <div>
                     <img className=' cursor-pointer w-10' onClick={handleSoundToggle}  src={`${SoundOn ? speakerOn : speakerOof}`} alt="" />

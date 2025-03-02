@@ -25,7 +25,8 @@ export const slicerr=createSlice({
         playAgain:(state)=>{
             state.accuracy=0
             state.error=0
-            state.score=0
+            state.words=0
+            state.wpm=0
         }
     }
 })

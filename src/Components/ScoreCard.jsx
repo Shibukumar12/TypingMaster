@@ -26,7 +26,7 @@ function ScoreCard() {
 
                     <div className=' border py-6 px-10 rounded-2xl bg-[#7dda6f]'>
                       <h3 className=' font-bold text-xl'>words-mins</h3>
-                      <p className=' text-center text-2xl'>{selector.score} WPM</p>
+                      <p className=' text-center text-2xl'>{selector.wpm} WPM</p>
                     </div>
 
                     <div className=' border py-6 px-14 rounded-2xl bg-[#7dda6f]'>
