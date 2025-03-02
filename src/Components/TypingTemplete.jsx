@@ -66,7 +66,7 @@ function TypingTemplete() {
             setindex(index+1)
             setUserTyping('')
         }
-        console.log(wordsCss);
+        
         
          //  after complete the line by user then show the another new line on the UI
         if( InputParaArray.length-1 === index){         
