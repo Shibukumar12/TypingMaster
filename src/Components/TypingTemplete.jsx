@@ -30,6 +30,7 @@ function TypingTemplete() {
   const [SoundOn,setSoundOn]=useState(true)
   const [hastimerStarted, setHastimerStarted] = useState(false);
   const [userTyping,setUserTyping]=useState('')
+  const [Answer,setAnswer]=useState('')
   const [isAciveClass,setsiActiveClass]=useState('Basic')
   const [InputPara,setInputPara]=useState(lines[randomvalue.current])
   const [InputParaArray,setInputParaArray]=useState(lines[randomvalue.current].split(" "))
@@ -47,17 +48,18 @@ function TypingTemplete() {
 
 //set the process function of the game ...............................................
   const Process=()=>{
-        let user=userTyping.trim()
 
         // check the user Answer and update Score and Error in Global State
-        if(user === InputParaArray[index]){            
+        if(userTyping === InputParaArray[index]){            
             dispatch(UpdateScore( Minute ))
             setindex(index+1)
+            setAnswer(true)
             setUserTyping('')
           
         }
         else{
             dispatch(UpdaterrorScore())
+            setAnswer(false)
             setindex(index+1)
             setUserTyping('')
         }
@@ -110,7 +112,7 @@ const startTimer = () => {
           typingVoice.current.play()
       }
 
-      if(event.code==='Space' && userTyping !== ''){
+      if(event.code==='Space'){
           Process()
       }
 
@@ -185,12 +187,24 @@ const startTimer = () => {
                 </div>
             </div>
 
-            <div className=' flex justify-center items-center row-span-2 '>
+            {/* <div className=' flex justify-center items-center row-span-2 '>
                 <Input readOnly ClassName=' w-[55%] text-3xl' value={InputPara}/> 
+            </div> */}
+            <div className='flex justify-center items-center gap-x-7 row-span-2 rounded-xl '>
+                <div className='border-2 w-[55%] py-4 flex justify-center items-center gap-x-2  rounded-2xl bg-white'>
+                    {    
+                      InputParaArray.map((word,idx)=>{
+                        return(
+                          <span key={idx}   className={`text-3xl 
+                            ${idx < index ? (Answer && InputParaArray[idx] ? 'text-green-500' : 'text-red-500') : 'text-black'}`}>{word} </span>
+                        )
+                      })
+                    }
+                </div>
             </div>
 
             <div className=' flex justify-center items-center row-span-3 '>
-                 <Input onChange={(e)=>setUserTyping(e.target.value)} value={userTyping} onKeyUp={handleKeyUp}  ClassName=' w-[42%] text-3xl placeholder-green-600 placeholder:text-2xl placeholder:font-bold' placeholder='Start Typing Here ....' /> 
+                 <Input onChange={(e)=>setUserTyping(e.target.value.trim())} value={userTyping} onKeyUp={handleKeyUp}  ClassName=' w-[42%] text-3xl placeholder-green-600 placeholder:text-2xl placeholder:font-bold' placeholder='Start Typing Here ....' /> 
             </div>
 
        </div>
