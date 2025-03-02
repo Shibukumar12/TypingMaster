@@ -39,6 +39,7 @@ function TypingTemplete() {
   const selector = useSelector(state=>state.Typingmaster)
   const dispatch=useDispatch()
   const navigate=useNavigate()
+  const [colorChanger,setcolorChanger]=useState([])    // to change the color of the word after user type it correctly or not
   
   
   const handleClass=(btnClass)=>{
@@ -52,6 +53,7 @@ function TypingTemplete() {
         // check the user Answer and update Score and Error in Global State
         if(userTyping === InputParaArray[index]){            
             dispatch(UpdateScore( Minute ))
+            colorChanger.push('text-green-500 font-bold')
             setindex(index+1)
             setAnswer(true)
             setUserTyping('')
@@ -59,19 +61,23 @@ function TypingTemplete() {
         }
         else{
             dispatch(UpdaterrorScore())
+            colorChanger.push('text-red-500 font-bold border-b-2 border-red-500')
             setAnswer(false)
             setindex(index+1)
             setUserTyping('')
         }
+        console.log(wordsCss);
         
          //  after complete the line by user then show the another new line on the UI
         if( InputParaArray.length-1 === index){         
             randomvalue.current= Math.floor(Math.random()*lines.length)
             setInputPara(lines[randomvalue.current])
             setInputParaArray(lines[randomvalue.current].split(' '))
+            setcolorChanger([])
             setindex(0)
           
         }
+
      dispatch(UpdateAccuracy())
   }
 
@@ -191,12 +197,11 @@ const startTimer = () => {
                 <Input readOnly ClassName=' w-[55%] text-3xl' value={InputPara}/> 
             </div> */}
             <div className='flex justify-center items-center gap-x-7 row-span-2 rounded-xl '>
-                <div className='border-2 w-[55%] py-4 flex justify-center items-center gap-x-2  rounded-2xl bg-white'>
+                <div className='border-2 w-[59%] py-4 flex justify-center items-center gap-x-2  rounded-2xl bg-white'>
                     {    
                       InputParaArray.map((word,idx)=>{
                         return(
-                          <span key={idx}   className={`text-3xl 
-                            ${idx < index ? (Answer && InputParaArray[idx] ? 'text-green-500' : 'text-red-500') : 'text-black'}`}>{word} </span>
+                          <span key={idx}   className={`text-3xl ${colorChanger[idx] || 'text-black font-bold'}`}>{word} </span>
                         )
                       })
                     }
