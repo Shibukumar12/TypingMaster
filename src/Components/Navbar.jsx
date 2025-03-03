@@ -1,15 +1,16 @@
 import React from 'react'
 import Button from './Button'
 import typingLogo from '../assets/typingLogo.png'
-function Navbar() {
+function Navbar({HandleClick}) {
     const navbarItems=[
         {
             name:'About us',
             url:'/about-us'
         },
         {
-            name:'Feedback',
-            url:'/feedback'
+            name:'Contact us',
+            url:'/contact',
+            onclick:HandleClick
         },
         {
             name:'Speed Reading',
@@ -17,7 +18,8 @@ function Navbar() {
         },
         {
             name:'Keyboard Tester',
-            url:'/keyboard-tester'
+            url:'/keyboard-tester',
+            
         },
     ]
   return (
@@ -34,7 +36,7 @@ function Navbar() {
                 {
                     navbarItems.map((navitem,idx)=>{
                         return(
-                        <li key={idx} className=' font-serif text-white cursor-pointer duration-700 hover:bg-[#333333] hover:text-yellow-300 hover:underline  rounded-xl px-3 py-2'>{navitem.name}</li>
+                        <li key={idx} onClick={navitem?.onclick} className=' font-serif text-white cursor-pointer duration-700 hover:bg-[#333333] hover:text-yellow-300 hover:underline  rounded-xl px-3 py-2'>{navitem.name}</li>
                        )
                     })
                 }
