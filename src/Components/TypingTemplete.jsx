@@ -13,15 +13,35 @@ function TypingTemplete() {
 
   const lines = [
     "the sun rises, painting the sky with hues of gold through this",
-    "birds chirp melodiously announcing the arrival of dawn's",
+    "birds chirp melodiously announcing the arrival of the dawn's",
     "dew-kissed grass glistens reflecting the morning's gentle on",
     "a gentle breeze whispers secrets through the rustling leaves",
     "mountains stand tall guardians of ancient tales untold color",
     "rivers meander lazily carving paths through verdant world i",
-    "flowers bloom their vibrant colors dancing in the sunlight",
-    "time marches on a relentless force shaping the world your",
+    "flowers blooms their vibrant colors dancing in the sunlights",
+    "time marches on a relentless force shaping on the world your",
     "dreams take flight carried on wings of hope and ambition a",
-    "life's symphony plays on each note a story unfolding on ear"
+    "life's symphony plays on each note a story unfolding on ear",
+    "moonlight drapes silver casting shadows that dance  mystery",
+    "waves kiss the shore timeless rhythm echoes nature’s lullaby",
+    "stars shimmer above celestial lanterns guiding lost soul home",
+    "autumn leaves waltz whispering softly in cool evening breeze",
+    "a silent snowfall blankets the world in a hush serene wonder",
+    "the forest hums alive with rustling leaves and distant echoes",
+    "sunset spills crimson amber painting the sky in golden hues",
+    "lightning streaks fierce illuminating the storm’s raw energy",
+    "a river’s murmur sings of mountains it once called home far",
+    "petals unfurl at dawn greeting the sun with delicate graces",
+    "twilight descends softly wrapping the world velvet embrace",
+    "clouds drift lazily painting their sky with whispers of dreams",
+    "rain falls in rhythm composing a melody their rooftops old",
+    "fireflies dance glowing whose tracing patterns in the dusky",
+    "wind carries secrets murmuring softly through ancient trees",
+    "shadows stretch long fading gently beneath the moon’s glow",
+    "ocean waves shimmer reflecting the small light of stars above",
+    "mist hugs the valley weaving a tale give teir whispers unseen",
+    "the desert sighs timeless shifting mean dunes who in golden",
+    "echoes linger softly where footsteps where once carved path",
   ];
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
   const [Timer,setTimer]=useState(60)
@@ -197,11 +217,11 @@ const startTimer = () => {
                 <Input readOnly ClassName=' w-[55%] text-3xl' value={InputPara}/> 
             </div> */}
             <div className='flex justify-center items-center gap-x-7 row-span-2 rounded-xl '>
-                <div className='border-2 w-[59%] py-4 flex justify-center items-center gap-x-2  rounded-2xl bg-white'>
+                <div className='border-2 w-[59%] py-4 pl-2 flex  items-center gap-x-2  rounded-2xl bg-white'>
                     {    
                       InputParaArray.map((word,idx)=>{
                         return(
-                          <span key={idx}   className={`text-3xl ${colorChanger[idx] || 'text-black font-bold'}`}>{word} </span>
+                          <span key={idx}   className={`text-3xl ${colorChanger[idx] || 'text-black font-bold'} ${idx===index ? 'underline' :''}`}>{word} </span>
                         )
                       })
                     }
