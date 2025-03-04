@@ -2,7 +2,7 @@ import React from 'react'
 import typingLogo from '../assets/typingLogo.png'
 import '@fortawesome/fontawesome-free/css/all.css'
 
-function Contact({Reff}) {
+function Contact({Reff,scrolldown}) {
   return (
     <>
       <div className=' grid grid-cols-3 gap-5 bg-black text-white pt-14 ' ref={Reff}>
@@ -46,6 +46,7 @@ function Contact({Reff}) {
               <p className=' text-center text-xs'>All trademarks, service marks, trade names, product names, logos and trade dress appearing on our website are the property of their respective owners i.e WPMTEST.</p>
             </div>
       </div>
+      <img onClick={scrolldown} className=' w-12 absolute top-[118%] right-10 bg-white cursor-pointer hover:bg-yellow-400 duration-500' src="https://www.svgrepo.com/show/491323/arrow-small-up.svg" alt="" />
     </> 
   )
 }

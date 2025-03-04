@@ -6,17 +6,22 @@ import Contact from './Components/Contact'
 
 function App() {
   const contactBtn=useRef()
-  const handleclick=()=>{
+  const ArrowUpBtn=useRef()
+
+  const ScrollUp=()=>{
     contactBtn.current.scrollIntoView({behavior:'smooth'})
+  }
+
+  const ScrollDown=()=>{
+    ArrowUpBtn.current.scrollIntoView({behavior:'smooth'})
   }
 
   return (
     <>
-     <Navbar HandleClick={handleclick}/>
-     <hr className=' bg-white' />
+     <Navbar scrollup={ScrollUp} Reff2={ArrowUpBtn}/>
      <Outlet/>
       <hr className=' bg-white' />
-     <Contact Reff={contactBtn}/>
+     <Contact Reff={contactBtn} scrolldown={ScrollDown}/>
     </>
   )
 }
