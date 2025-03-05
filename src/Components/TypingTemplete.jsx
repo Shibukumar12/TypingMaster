@@ -5,7 +5,7 @@ import speakerOn from '../assets/speakerOn.png'
 import speakerOof from '../assets/speakerOof.jpg'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import{UpdaterrorScore,UpdateScore,UpdateAccuracy} from './Store/Slicing'
+import{UpdaterrorScore,UpdateScore,UpdateAccuracy, RecordSaver} from './Store/Slicing'
 import typing from '../assets/typing.mp4'
 import gameoversound from '../assets/gameoversound.wav'
 
@@ -44,7 +44,7 @@ function TypingTemplete() {
     "echoes linger softly where footsteps where once carved path",
   ];
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
-  const [Timer,setTimer]=useState(60)
+  const [Timer,setTimer]=useState(6)
   const [Minute,setMinute]=useState(1)
   const [index,setindex]=useState(0)
   const [SoundOn,setSoundOn]=useState(true)
@@ -117,7 +117,7 @@ const startTimer = () => {
           else{
               clearInterval(timerRef); // Stop timer at 0
               navigate('/Typing-scoreCard')
-              
+              dispatch(RecordSaver())
               if(SoundOn){ 
                 GameOverSound.current.play()
               }

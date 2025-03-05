@@ -15,8 +15,8 @@ function Navbar({scrollup,Reff2}) {
             onclick:scrollup
         },
         {
-            name:'Speed Reading',
-            url:'/speed-reading'
+            name:'Record',
+            url:'/Record'
         },
         {
             name:'Keyboard Tester',
