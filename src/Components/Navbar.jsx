@@ -15,7 +15,7 @@ function Navbar({scrollup,Reff2}) {
             onclick:scrollup
         },
         {
-            name:'Record',
+            name:'Records',
             url:'/Record'
         },
         {

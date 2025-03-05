@@ -5,6 +5,7 @@ const initialState={
         error:0,
         accuracy:0,
         wpm:0,
+        recordArray:null
 }
 
 export const slicerr=createSlice({
@@ -34,7 +35,7 @@ export const slicerr=createSlice({
             let now= new Date()
             let date=now.toLocaleDateString()
             let time=now.toLocaleTimeString()
-            
+
             savedRecord.push({
                 date:date,
                 time:time,
@@ -44,6 +45,8 @@ export const slicerr=createSlice({
             })
 
             localStorage.setItem('recordsaver',JSON.stringify(savedRecord))
+            state.recordArray=JSON.parse(localStorage.getItem('recordsaver'))
+
         }
     }
 })

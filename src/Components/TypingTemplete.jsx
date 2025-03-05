@@ -44,7 +44,7 @@ function TypingTemplete() {
     "echoes linger softly where footsteps where once carved path",
   ];
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
-  const [Timer,setTimer]=useState(6)
+  const [Timer,setTimer]=useState(60)
   const [Minute,setMinute]=useState(1)
   const [index,setindex]=useState(0)
   const [SoundOn,setSoundOn]=useState(true)
