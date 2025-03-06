@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { playAgain } from './Store/Slicing'
@@ -6,10 +6,22 @@ import { playAgain } from './Store/Slicing'
 
 function ScoreCard() {
   const selector=useSelector(state=>state.Typingmaster)
+  const [recordSaved,setRecordsaved]=useState(false)
   const navigate=useNavigate()
   const dispatch=useDispatch()
 
+  const userRecord= JSON.parse(localStorage.getItem('records')) || []
+  userRecord.push({
+    date:new Date().toLocaleDateString(),
+    time:new Date().toLocaleTimeString(),
+    wpm:selector.wpm,
+    error:selector.error,
+    accuracy:selector.accuracy
+  })
+  localStorage.setItem('records',JSON.stringify(userRecord))
+
   const updateGlobalState=()=>{
+    setRecordsaved((prev)=>!prev)
     dispatch(playAgain())
     navigate('/')
   }

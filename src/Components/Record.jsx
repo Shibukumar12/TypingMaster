@@ -2,8 +2,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 function Record() {
-  const selector=useSelector(state=>state.Typingmaster)
-  console.log(selector);
+  const userRecord= JSON.parse(localStorage.getItem('records'))
+  console.log(userRecord);
+  
   
   return (
     <>
@@ -20,8 +21,8 @@ function Record() {
             <hr className=' border-white mx-7'/>
 
             
-                {selector.recordArray  && selector.recordArray.lenght > 0 ?  
-                  selector.recordArray?.map((item,index)=>{
+                {
+                  userRecord?.map((item,index)=>{
                     return(
                           <>
                             <ul key={index} className='grid grid-cols-5 gap-10 mx-12  mt-2 mb-1'>
@@ -35,7 +36,7 @@ function Record() {
                           </>
                     )
                   })
-                  :<h1 className='text-center mt-10'>No Records Found</h1>
+                 
                 }
            
        </div>

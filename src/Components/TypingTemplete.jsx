@@ -5,7 +5,7 @@ import speakerOn from '../assets/speakerOn.png'
 import speakerOof from '../assets/speakerOof.jpg'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import{UpdaterrorScore,UpdateScore,UpdateAccuracy, RecordSaver} from './Store/Slicing'
+import{UpdaterrorScore,UpdateScore,UpdateAccuracy} from './Store/Slicing'
 import typing from '../assets/typing.mp4'
 import gameoversound from '../assets/gameoversound.wav'
 
@@ -23,28 +23,28 @@ function TypingTemplete() {
     "dreams take flight carried on wings of hope and ambition a",
     "life's symphony plays on each note a story unfolding on ear",
     "moonlight drapes silver casting shadows that dance  mystery",
-    "waves kiss the shore timeless rhythm echoes nature’s lullaby",
+    "waves kiss the shore timeless rhythm echoes nature's lullaby",
     "stars shimmer above celestial lanterns guiding lost soul home",
     "autumn leaves waltz whispering softly in cool evening breeze",
     "a silent snowfall blankets the world in a hush serene wonder",
     "the forest hums alive with rustling leaves and distant echoes",
     "sunset spills crimson amber painting the sky in golden hues",
-    "lightning streaks fierce illuminating the storm’s raw energy",
-    "a river’s murmur sings of mountains it once called home far",
+    "lightning streaks fierce illuminating the storm's raw energy",
+    "a river's murmur sings of mountains it once called home far",
     "petals unfurl at dawn greeting the sun with delicate graces",
     "twilight descends softly wrapping the world velvet embrace",
     "clouds drift lazily painting their sky with whispers of dreams",
     "rain falls in rhythm composing a melody their rooftops old",
     "fireflies dance glowing whose tracing patterns in the dusky",
     "wind carries secrets murmuring softly through ancient trees",
-    "shadows stretch long fading gently beneath the moon’s glow",
+    "shadows stretch long fading gently beneath the moon's glow",
     "ocean waves shimmer reflecting the small light of stars above",
     "mist hugs the valley weaving a tale give teir whispers unseen",
     "the desert sighs timeless shifting mean dunes who in golden",
     "echoes linger softly where footsteps where once carved path",
   ];
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
-  const [Timer,setTimer]=useState(60)
+  const [Timer,setTimer]=useState(10)
   const [Minute,setMinute]=useState(1)
   const [index,setindex]=useState(0)
   const [SoundOn,setSoundOn]=useState(true)
@@ -116,8 +116,9 @@ const startTimer = () => {
           }
           else{
               clearInterval(timerRef); // Stop timer at 0
+              console.log('finished');
+              
               navigate('/Typing-scoreCard')
-              dispatch(RecordSaver())
               if(SoundOn){ 
                 GameOverSound.current.play()
               }

@@ -29,27 +29,9 @@ export const slicerr=createSlice({
             state.words=0
             state.wpm=0
         },
-        RecordSaver:(state)=>{
-            let savedRecord= JSON.parse(localStorage.getItem('recordsaver')) || [];
-
-            let now= new Date()
-            let date=now.toLocaleDateString()
-            let time=now.toLocaleTimeString()
-
-            savedRecord.push({
-                date:date,
-                time:time,
-                wpm:state.wpm,
-                error:state.error,
-                accuracy:state.accuracy,
-            })
-
-            localStorage.setItem('recordsaver',JSON.stringify(savedRecord))
-            state.recordArray=JSON.parse(localStorage.getItem('recordsaver'))
-
-        }
+       
     }
 })
 
-export const {UpdateScore,UpdaterrorScore,UpdateAccuracy,playAgain,RecordSaver}=slicerr.actions
+export const {UpdateScore,UpdaterrorScore,UpdateAccuracy,playAgain}=slicerr.actions
 export default slicerr.reducer
