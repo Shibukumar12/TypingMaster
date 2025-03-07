@@ -10,15 +10,6 @@ function ScoreCard() {
   const navigate=useNavigate()
   const dispatch=useDispatch()
 
-  const userRecord= JSON.parse(localStorage.getItem('records')) || []
-  userRecord.push({
-    date:new Date().toLocaleDateString(),
-    time:new Date().toLocaleTimeString(),
-    wpm:selector.wpm,
-    error:selector.error,
-    accuracy:selector.accuracy
-  })
-  localStorage.setItem('records',JSON.stringify(userRecord))
 
   const updateGlobalState=()=>{
     setRecordsaved((prev)=>!prev)
@@ -29,7 +20,7 @@ function ScoreCard() {
     <>
        <div className=' bg-black h-screen flex justify-center items-center'>
             <div className='  w-[50%] h-[70%] border bg-[#464545] rounded-2xl '>
-                 <h1 className=' text-yellow-200 font-bold text-3xl  absolute left-[33%] top-[36%]'>{selector.score < 29 ? 'You are moving slow like a baby car' : selector.score > 30  && selector.score < 40 ? 'You are moving fast like a MotorBike' : 'You are moving so fast like a super Car'}</h1>
+                 <h1 className=' text-yellow-200 font-bold text-3xl  absolute left-[33%] top-[36%]'>{selector.wpm < 29 ? 'You are moving slow like a baby car' : selector.wpm > 30  && selector.wpm < 40 ? 'You are moving fast like a MotorBike' : 'You are moving so fast like a super Car'}</h1>
                 <div className='flex justify-evenly items-center h-full'>
                     <div className=' border py-6 px-10 rounded-2xl bg-[#7dda6f]'>
                       <h3 className=' font-bold text-xl'>Accuracy</h3>

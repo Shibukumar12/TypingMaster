@@ -44,7 +44,7 @@ function TypingTemplete() {
     "echoes linger softly where footsteps where once carved path",
   ];
   let randomvalue=useRef( Math.floor(Math.random()*lines.length))
-  const [Timer,setTimer]=useState(10)
+  const [Timer,setTimer]=useState(60)
   const [Minute,setMinute]=useState(1)
   const [index,setindex]=useState(0)
   const [SoundOn,setSoundOn]=useState(true)
@@ -116,18 +116,39 @@ const startTimer = () => {
           }
           else{
               clearInterval(timerRef); // Stop timer at 0
-              console.log('finished');
               
-              navigate('/Typing-scoreCard')
-              if(SoundOn){ 
-                GameOverSound.current.play()
-              }
+              // navigate('/Typing-scoreCard')
+              // if(SoundOn){ 
+              //   GameOverSound.current.play()
+              // }
               return 0;
           }
         });
       }, 1000);
     }
   };
+
+  useEffect(()=>{
+      if(Timer === 0){
+        
+            const userRecord= JSON.parse(localStorage.getItem('Records')) || []
+            userRecord.push({
+              date:new Date().toLocaleDateString(),
+              time:new Date().toLocaleTimeString(),
+              wpm:selector.wpm,
+              error:selector.error,
+              accuracy:selector.accuracy
+            })
+            localStorage.setItem('Records',JSON.stringify(userRecord))
+
+            navigate('/Typing-scoreCard')
+
+        if(SoundOn){ 
+          GameOverSound.current.play()
+        }   
+      }
+      
+  },[Timer])
 
 // ********************************************************************************************************************
 
