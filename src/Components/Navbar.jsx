@@ -6,17 +6,21 @@ import { Link } from 'react-router-dom'
 function Navbar({scrollup,Reff2}) {
     const navbarItems=[
         {
+            name:'Home',
+            url:''
+        },
+        {
             name:'About us',
             url:'/About-us'
+        },
+        {
+            name:'Records',
+            url:'/Record'
         },
         {
             name:'Contact us',
             // url:'/contact',
             onclick:scrollup
-        },
-        {
-            name:'Records',
-            url:'/Record'
         },
         {
             name:'Keyboard Tester',
@@ -36,7 +40,7 @@ function Navbar({scrollup,Reff2}) {
                         <img className=' w-64' src={typingLogo} alt="" />
                     </div>
 
-                    <ul className=' flex items-center gap-14 '>
+                    <ul className=' flex items-center gap-10 '>
                         {
                             navbarItems.map((navitem,idx)=>{
                                 return(
